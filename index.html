@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="favicon.png">
+
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        header {
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+        }
+
+        header h1 {
+            margin: 0;
+        }
+
+        header img {
+            max-width: 150px;
+            height: auto;
+        }
+
+        main {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(99vh - 200px);
+        }
+
+        .container {
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 2rem;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        .dropdown {
+            width: 100%;
+            padding: 0.8rem;
+            margin-bottom: 1.2rem;
+            font-size: 18px;
+        }
+
+        .filename-input {
+            width: 100%;
+            padding: .8rem;
+            margin-bottom: 1.2rem;
+            font-size: 16px;
+        }
+
+        button[type="submit"] {
+            background-color: #28a745;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.2rem;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+            border-radius: 4px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            margin-top: 1rem;
+            font-weight: bold;
+        }
+
+        #file-progress {
+            margin-top: 1rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        td {
+            background-color: #f9f9f9;
+        }
+
+        @media screen and (max-width: 600px) {
+            .container {
+                max-width: 100%;
+            }
+
+            .dropdown,
+            .filename-input,
+            button[type="submit"] {
+                font-size: 16px;
+                padding: 0.8rem;
+            }
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="script.js"></script>
+    <!-- Include your script.js file -->
+</head>
+
+<body>
+    <header>
+        <img src="Rogers1.png" alt="Logo">
+        <h1>File Transfer</h1>
+    </header>
+    <main>
+        <div class="container">
+            <form id="transferForm">
+                <label for="source">Select Source Network Path:</label>
+                <select id="source" name="source" class="dropdown">
+                    <option value="\\mediastore.media.rogers.com\master_archive\LongForm">LongForm</option>
+                    <option value="\\mediastore.media.rogers.com\master_archive\ShortForm">ShortForm</option>
+                    <option value="\\mediastore.media.rogers.com\engineering\TESTING\Gurdeep_test_onaircreative">Test</option>
+                </select>
+
+                <label for="destination">Select Destination Network Path:</label>
+                <select id="destination" name="destination" class="dropdown">
+                    <option value="\\mediastore.media.rogers.com\CityOmni\CITYMEDIA\CITY CREATIVE\Restored_for_OAC">OAC Folder</option>
+                    <option value="\\mediastore.media.rogers.com\engineering\TESTING\Gurdeepout">Test-out</option>
+                </select>
+
+                <label for="filename">Enter File Name:</label>
+                <input type="text" id="filename" name="filename" class="filename-input" placeholder="Enter the file name(s)">
+                <!-- Users can enter filenames without the .mxf extension -->
+
+                <button type="submit" name="transferBtn">Transfer File <i class="fas fa-upload"></i></button>
+                <div class="loading" id="loading"> Please wait while copying...</div>
+
+                
+                
+
+                <!-- Table to display file copy progress -->
+                <table id="copy-table">
+                    <thead>
+                        <tr>
+                            <th>File</th>
+                            
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>
